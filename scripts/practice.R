@@ -98,6 +98,12 @@ TVlines<- data.frame(state = c("florida", "texas", "puerto_rico","florida"),
                      RefTV = c("Harvey landfall", "Irma landfall", "Maria landfall", "Las Vegas shooting"),
                      stringsAsFactors = FALSE)
 
+d <- data.frame(state = c("texas", "florida", "puerto_rico"),
+                date=as.Date(c("2017-08-28","2017-09-10","2017-10-01")), 
+                percent=c(1,1.5,0.40), 
+                name = c("Texas", "Florida", "Puerto Rico"),
+                stringsAsFactors = FALSE)
+
 TVplot <- tv_states_longer %>%
   mutate(state = fct_relevel(state, "florida", "texas", "puerto_rico")) %>%
   ggplot(aes(date, percent, fill = state)) +
@@ -116,6 +122,7 @@ TVplot <- tv_states_longer %>%
        y = "Share of sentences",
        caption = "Includes Bloomberg, CNBC, CNN, Fox Business, Fox News and MSNBC.") +
   
-  theme_minimal()
+  theme_minimal() +
+  geom_text(data=d, mapping=aes(x=date, y=percent, label=name))
 
 TVplot
