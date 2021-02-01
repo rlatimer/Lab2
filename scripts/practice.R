@@ -109,6 +109,7 @@ TVplot <- tv_states_longer %>%
                           hjust = "center",
                           vjust = 0),
             data = TVlines) +
+  scale_fill_manual(values = c("#ff007b","#00d9ff","#ff6e00"))+
   labs(title = "National cable news networks",
        x = NULL,
        y = "Share of sentences",
