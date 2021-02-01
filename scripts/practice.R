@@ -52,7 +52,9 @@ plot3 <- google_trends_longer %>%
 #probably not the way Daniel intended....
 
 landfall <- data.frame(hurricane = c("harvey_us", "irma_us", "maria_us"),
-                       date = as.Date(c("2017-08-25", "2017-09-10", "2017-09-20")))
+                       date = as.Date(c("2017-08-25", "2017-09-10", "2017-09-20")),
+                       Ref = c("Harvey landfall", "Irma landfall", "Maria landfall"),
+                       stringsAsFactors = FALSE)
 
 plot4 <- google_trends_longer %>%
   ggplot(aes(date, mentions, fill = hurricane)) +
@@ -66,6 +68,12 @@ plot5 <- google_trends_longer %>%
   ggplot(aes(date, mentions, fill = hurricane)) +
   geom_area(position = "dodge", alpha = 0.8) +
   geom_vline(data = landfall, aes(xintercept=as.numeric(date[c(1,2,3)])), linetype=4) +
+  geom_text(mapping = aes(x = date,
+                          y = 100,
+                          label = Ref,
+                          hjust = 0,
+                          vjust = 0),
+            data = landfall) +
   labs(title = "US Google Search Interest on Hurricanes",
        x = "Date",
        y = "Search Interest",
