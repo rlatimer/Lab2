@@ -71,7 +71,7 @@ plot5 <- google_trends_longer %>%
   geom_text(mapping = aes(x = date,
                           y = 100,
                           label = Ref,
-                          hjust = 0,
+                          hjust = center,
                           vjust = 0),
             data = landfall) +
   labs(title = "US Google Search Interest on Hurricanes",
@@ -86,3 +86,34 @@ plot5 <- google_trends_longer %>%
   theme_minimal()
 
 plot5
+
+#visualizing tv_states data
+tv_states_longer <- tv_states %>%
+  pivot_longer(cols = florida:puerto_rico,
+               names_to = "state",
+               values_to = "percent")
+
+TVlines<- data.frame(state = c("florida", "texas", "puerto_rico","florida"),
+                     date = as.Date(c("2017-08-25", "2017-09-10", "2017-09-20", "2017-10-01")),
+                     RefTV = c("Harvey landfall", "Irma landfall", "Maria landfall", "Las Vegas shooting"),
+                     stringsAsFactors = FALSE)
+
+TVplot <- tv_states_longer %>%
+  ggplot(aes(date, percent, fill = state)) +
+  guides(fill = FALSE) +
+  geom_area(position = "dodge") +
+  geom_vline(data = TVlines, aes(xintercept=as.numeric(date[c(1,2,3,4)])), linetype=4) +
+  geom_text(mapping = aes(x = date,
+                          y = 4,
+                          label = RefTV,
+                          hjust = "center",
+                          vjust = 0),
+            data = TVlines) +
+  labs(title = "National cable news networks",
+       x = NULL,
+       y = "Share of sentences",
+       caption = "Includes Bloomberg, CNBC, CNN, Fox Business, Fox News and MSNBC.") +
+  
+  theme_minimal()
+
+TVplot
