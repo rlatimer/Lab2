@@ -156,7 +156,13 @@ comic_plot_1 <- comic_characters_gender %>%
   ggplot(aes("", gender_ratio, fill = gender_type)) +
              geom_bar(stat = "identity", width = 5) +
              coord_polar("y", start = 0) +
-             theme_void()
+             theme_void() +
+             labs(title = "Ratio of Gender Types of Comic Book Characters",
+             x = "Gender Ratio",
+             y = NULL,
+             caption = "Includes DC & Marvel Characters from 1938 to 2013") +
+             #scale_color_discrete(name = "Gender Types")
+  
              
 
 comic_plot_1
