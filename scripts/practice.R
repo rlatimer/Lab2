@@ -126,3 +126,48 @@ TVplot <- tv_states_longer %>%
   geom_text(data=d, mapping=aes(x=date, y=percent, label=name))
 
 TVplot
+
+comic_characters <- comic_characters
+N <- 23272
+
+#pie chart of appearance count by first appearnce date
+comic_characters_gender <- comic_characters %>%
+  count(gender_type = sex) %>% 
+  mutate(gender_ratio = n/N)#devide each sex count value by total 
+
+comic_characters_gender$gender_type <- gsub(" Characters", "", comic_characters_gender$gender_type)
+
+comic_plot_1 <- comic_characters_gender %>% 
+  ggplot(aes("", gender_ratio, fill = gender_type)) +
+  geom_bar(stat = "identity", width = 5) +
+  coord_polar("y", start = 0) +
+  theme_void() +
+  labs(title = "Ratio of Gender Types of Comic Book Characters",
+       x = "Gender Ratio",
+       y = NULL,
+       caption = "Includes DC & Marvel Characters from 1938 to 2013")
+  #scale_color_discrete(name = "Gender Types")
+  
+  
+  
+  comic_plot_1
+
+#Bar plots for type of gender ratio by alignment
+comic_plot_2 <- comic_characters %>% 
+  count(gender_type = sex, align) %>% 
+  mutate(gender_ratio = n/N) %>% 
+  #tabyl(gender_type, align) %>% #returns dataframe with counts with sex as row and align as column, 
+  ggplot(aes(gender_ratio, align, fill = gender_type)) +
+  geom_col() +
+  facet_wrap(~gender_type) +
+  theme_minimal()
+
+comic_plot_2
+
+comic_plot_3 <- comic_characters_gender %>%
+  ggplot(aes(gender_type, gender_ratio, fill = gender_type)) +
+  geom_bar(stat="identity")
+
+
+comic_plot_3
+

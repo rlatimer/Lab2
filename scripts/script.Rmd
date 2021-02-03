@@ -160,7 +160,7 @@ comic_plot_1 <- comic_characters_gender %>%
              labs(title = "Ratio of Gender Types of Comic Book Characters",
              x = "Gender Ratio",
              y = NULL,
-             caption = "Includes DC & Marvel Characters from 1938 to 2013") +
+             caption = "Includes DC & Marvel Characters from 1938 to 2013") 
              #scale_color_discrete(name = "Gender Types")
   
              
