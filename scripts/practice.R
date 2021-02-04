@@ -1,10 +1,12 @@
 #packages
 install.packages("fivethirtyeight")
+install.packages("scico")
 remotes::install_github("fivethirtyeightdata/fivethirtyeightdata")
 library(fivethirtyeight)
 library(fivethirtyeightdata)
 library(tidyverse)
 library(janitor)
+library(scico)
 
 #datasets
 google_trends <- google_trends
@@ -20,25 +22,59 @@ google_trends_longer <- google_trends %>%
 
 #part 1
 plot1 <- google_trends_longer %>%
-  ggplot(aes(date, mentions, color = hurricane)) +
-  geom_line() +
-  facet_wrap(~hurricane) +
+  ggplot(aes(date, mentions)) +
+  geom_line(aes(color = hurricane)) +
   theme_minimal()
 plot1
 
+# plot1 <- google_trends_longer %>%
+#   ggplot(aes(date, mentions, color = hurricane)) +
+#   geom_line() +
+#   theme_minimal()
+#they are visually identical, but is there any tangible difference between the two?
+
 #part2
 plot2 <- google_trends_longer %>%
-  ggplot(aes(date, mentions, fill = hurricane)) +
-  geom_area(position = "dodge", alpha = 0.8) +
+  ggplot(aes(date, mentions)) +
+  geom_area(aes(fill = hurricane), position = "dodge", alpha = 0.8) +
   theme_minimal()
 plot2
+#This one show up fine but there is an error message:
+#[[[[Width not defined. Set with `position_dodge(width = ?)`]]]
+
 
 #part3
-plot3 <- google_trends_longer %>%
-  ggplot(aes(date, mentions, color = hurricane)) +
-  geom_area() +
-  scale_fill_continuous(low = "white", high = "red") +
+
+# plot3 <- google_trends_longer %>%
+#   ggplot(aes(date, mentions)) +
+#   geom_area(aes(fill = hurricane)) +
+#   scico:: scale_fill_scico(palette = "tokyo") +
+#   theme_minimal()
+# plot3
+# #Error: Discrete value supplied to continuous scale
+# How do I change the scales so color is mapped to a continuous scale? Hurricane is a categorical variable...
+
+
+# Maybe change it to
+levels(google_trends_longer$hurricane)
+
+data_plot3$hurricane = as.numeric(levels(data_plot3$hurricane))[data_plot3$hurricane]
+
+data_plot3 <- google_trends_longer %>%
+  count(hurricane, sort = TRUE) %>%
+  mutate(hurricane = as.numeric(hurricane),
+         hurricane = fct_reorder(hurricane, n))
+
+data_plot3 <- google_trends_longer %>%
+  mutate(hurricane = factor(hurricane)
+
+plot3 <- data_plot3 %>%
+  ggplot(aes(date, mentions)) +
+  geom_area(aes(fill = hurricane)) +
+  scico:: scale_fill_scico(palette = "tokyo") +
   theme_minimal()
+plot3
+
 
 #part 4
 
@@ -49,7 +85,7 @@ plot3 <- google_trends_longer %>%
 #     hurricane == "irma_us" & date == "2017-09-10" |
 #     hurricane == "maria_us" & date == "2017-09-20",
 #     1, 0))
-#probably not the way Daniel intended....
+#probably not the way Daniel intended.... starting over
 
 landfall <- data.frame(hurricane = c("harvey_us", "irma_us", "maria_us"),
                        date = as.Date(c("2017-08-25", "2017-09-10", "2017-09-20")),
@@ -87,87 +123,14 @@ plot5 <- google_trends_longer %>%
 
 plot5
 
-#visualizing tv_states data
-tv_states_longer <- tv_states %>%
-  pivot_longer(cols = florida:puerto_rico,
-               names_to = "state",
-               values_to = "percent")
 
-TVlines<- data.frame(state = c("florida", "texas", "puerto_rico","florida"),
-                     date = as.Date(c("2017-08-25", "2017-09-10", "2017-09-20", "2017-10-01")),
-                     RefTV = c("Harvey landfall", "Irma landfall", "Maria landfall", "Las Vegas shooting"),
-                     stringsAsFactors = FALSE)
 
-d <- data.frame(state = c("texas", "florida", "puerto_rico"),
-                date=as.Date(c("2017-08-28","2017-09-10","2017-10-01")), 
-                percent=c(1,1.5,0.40), 
-                name = c("Texas", "Florida", "Puerto Rico"),
-                stringsAsFactors = FALSE)
-
-TVplot <- tv_states_longer %>%
-  mutate(state = fct_relevel(state, "florida", "texas", "puerto_rico")) %>%
-  ggplot(aes(date, percent, fill = state)) +
-  guides(fill = FALSE) +
-  geom_area(position = "dodge") +
-  geom_vline(data = TVlines, aes(xintercept=as.numeric(date[c(1,2,3,4)])), linetype=4) +
-  geom_text(mapping = aes(x = date,
-                          y = 4,
-                          label = RefTV,
-                          hjust = "center",
-                          vjust = 0),
-            data = TVlines) +
-  scale_fill_manual(values = c("#ff007b","#ff6e00","#00d9ff"))+
-  labs(title = "National cable news networks",
-       x = NULL,
-       y = "Share of sentences",
-       caption = "Includes Bloomberg, CNBC, CNN, Fox Business, Fox News and MSNBC.") +
-  
-  theme_minimal() +
-  geom_text(data=d, mapping=aes(x=date, y=percent, label=name))
-
-TVplot
-
-comic_characters <- comic_characters
-N <- 23272
-
-#pie chart of appearance count by first appearnce date
-comic_characters_gender <- comic_characters %>%
-  count(gender_type = sex) %>% 
-  mutate(gender_ratio = n/N)#devide each sex count value by total 
-
-comic_characters_gender$gender_type <- gsub(" Characters", "", comic_characters_gender$gender_type)
-
-comic_plot_1 <- comic_characters_gender %>% 
-  ggplot(aes("", gender_ratio, fill = gender_type)) +
-  geom_bar(stat = "identity", width = 5) +
-  coord_polar("y", start = 0) +
-  theme_void() +
-  labs(title = "Ratio of Gender Types of Comic Book Characters",
-       x = "Gender Ratio",
-       y = NULL,
-       caption = "Includes DC & Marvel Characters from 1938 to 2013")
-  #scale_color_discrete(name = "Gender Types")
-  
-  
-  
-  comic_plot_1
-
-#Bar plots for type of gender ratio by alignment
-comic_plot_2 <- comic_characters %>% 
-  count(gender_type = sex, align) %>% 
-  mutate(gender_ratio = n/N) %>% 
-  #tabyl(gender_type, align) %>% #returns dataframe with counts with sex as row and align as column, 
+comic_plot_4 <- comic_characters %>%
+  count(gender_type = sex, align) %>%
+  mutate(gender_ratio = n/N) %>%
+  #tabyl(gender_type, align) %>% #returns dataframe with counts with sex as row and align as column,
   ggplot(aes(gender_ratio, align, fill = gender_type)) +
   geom_col() +
-  facet_wrap(~gender_type) +
+  facet_wrap(~align) +
   theme_minimal()
-
-comic_plot_2
-
-comic_plot_3 <- comic_characters_gender %>%
-  ggplot(aes(gender_type, gender_ratio, fill = gender_type)) +
-  geom_bar(stat="identity")
-
-
-comic_plot_3
 

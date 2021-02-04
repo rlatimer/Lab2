@@ -1,17 +1,25 @@
 ---
-title: "Lab 2"
-author: "Hyeonjin Cha"
-date: "1/30/2021"
-output: html_document
+title: "EDLD652 Lab 2"
+author:
+  - "Hyeonjin Cha"
+  - "Rachael Latimer"
+  - "Tess Sameshima"
+date: "2/3/2021"
+output: 
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-# install.packages("fivethirtyeight")
-# remotes::install_github("fivethirtyeightdata/fivethirtyeightdata")
+#install.packages("fivethirtyeight")
+#install.packages("scico")
+#remotes::install_github("fivethirtyeightdata/fivethirtyeightdata")
 library(fivethirtyeight)
 library(fivethirtyeightdata)
 library(tidyverse)
+library(scico)
+
 ```
 
 ## 1. Google Trends Data
@@ -39,11 +47,18 @@ plot2 <- google_trends_longer %>%
 plot2
 
 #part3
+
 plot3 <- google_trends_longer %>%
-  ggplot(aes(date, mentions, color = hurricane)) +
-  geom_area() +
-  scale_fill_continuous(low = "white", high = "red") +
+  ggplot(aes(date, mentions)) +
+  geom_area(aes(fill = hurricane)) +
+  scico:: scale_fill_scico(palette = "tokyo") +
   theme_minimal()
+# #Error: Discrete value supplied to continuous scale
+# How do I change the scales so color is mapped to a continuous scale? Hurricane is a categorical variable...
+
+# Maybe change the variable from categorical to numerical?
+# google_trends_longer$hurricane = as.numeric(levels(google_trends_longer$hurricane))[google_trends_longer$hurricane]
+# this didn't seem to work either... it all turned NA
 
 #part 4
 
@@ -183,9 +198,12 @@ comic_plot_3 <- comic_characters_gender %>%
   ggplot(aes(gender_type, gender_ratio, fill = gender_type)) +
     geom_bar(stat="identity")
 
-
-comic_plot_3
-
+comic_plot_3 + 
+  labs(title = "Ratio of Gender Types of Comic Book Characters",
+       subtitle = "Includes DC & Marvel Characters from 1938 to 2013",
+       x = "Type",
+       y = "Ratio",
+       label = "Type")
 
 ```
 
