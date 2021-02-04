@@ -55,15 +55,16 @@ plot2
 # How do I change the scales so color is mapped to a continuous scale? Hurricane is a categorical variable...
 
 
-# Maybe change it to
+plot3 <- google_trends_longer %>%
+  group_by(date) %>%
+  summarize(total = sum(mentions)) %>%
+  ggplot(aes(date, mentions)) +
+  geom_area(aes(fill = ment)) +
+
+  Maybe change it to
 levels(google_trends_longer$hurricane)
 
 data_plot3$hurricane = as.numeric(levels(data_plot3$hurricane))[data_plot3$hurricane]
-
-data_plot3 <- google_trends_longer %>%
-  count(hurricane, sort = TRUE) %>%
-  mutate(hurricane = as.numeric(hurricane),
-         hurricane = fct_reorder(hurricane, n))
 
 data_plot3 <- google_trends_longer %>%
   mutate(hurricane = factor(hurricane)
