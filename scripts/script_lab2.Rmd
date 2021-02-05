@@ -6,7 +6,6 @@ author:
   - "Tess Sameshima"
 date: "2/3/2021"
 output: 
-  pdf_document: default
   html_document: default
 ---
 
@@ -48,17 +47,31 @@ plot2
 
 #part3
 
-plot3 <- google_trends_longer %>%
-  ggplot(aes(date, mentions)) +
-  geom_area(aes(fill = hurricane)) +
-  scico:: scale_fill_scico(palette = "tokyo") +
-  theme_minimal()
+# plot3 <- google_trends_longer %>%
+#   ggplot(aes(date, mentions)) +
+#   geom_area(aes(fill = hurricane)) +
+#   scico:: scale_fill_scico(palette = "tokyo") +
+#   theme_minimal
+
 # #Error: Discrete value supplied to continuous scale
 # How do I change the scales so color is mapped to a continuous scale? Hurricane is a categorical variable...
 
 # Maybe change the variable from categorical to numerical?
 # google_trends_longer$hurricane = as.numeric(levels(google_trends_longer$hurricane))[google_trends_longer$hurricane]
 # this didn't seem to work either... it all turned NA
+
+
+#I asked Daniel for help; feel like an idiot not figuring out this simple but oh well
+plot3 <- google_trends_longer %>% 
+  group_by(hurricane, date) %>% 
+  summarize(mentions = mean(mentions)) %>% 
+  ggplot(aes(date, hurricane)) +
+  geom_tile(aes(fill = mentions),
+            color = "white") +
+  coord_fixed() + 
+  theme_minimal()
+plot3
+
 
 #part 4
 

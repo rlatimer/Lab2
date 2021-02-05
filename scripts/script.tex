@@ -1,0 +1,399 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={EDLD652 Lab 2},
+  pdfauthor={Hyeonjin Cha; Rachael Latimer; Tess Sameshima},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+
+\title{EDLD652 Lab 2}
+\author{Hyeonjin Cha \and Rachael Latimer \and Tess Sameshima}
+\date{2/3/2021}
+
+\begin{document}
+\maketitle
+
+\hypertarget{google-trends-data}{%
+\subsection{1. Google Trends Data}\label{google-trends-data}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#dataset}
+\NormalTok{google_trends_longer <-}\StringTok{ }\NormalTok{google_trends }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{pivot_longer}\NormalTok{(}\DataTypeTok{cols =} \KeywordTok{starts_with}\NormalTok{(}\StringTok{"hurricane"}\NormalTok{),}
+               \DataTypeTok{names_to =} \StringTok{"hurricane"}\NormalTok{,}
+               \DataTypeTok{names_prefix =} \StringTok{"hurricane_"}\NormalTok{,}
+               \DataTypeTok{values_to =} \StringTok{"mentions"}\NormalTok{)}
+
+\CommentTok{#part 1}
+\NormalTok{plot1 <-}\StringTok{ }\NormalTok{google_trends_longer }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(date, mentions, }\DataTypeTok{color =}\NormalTok{ hurricane)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_line}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{facet_wrap}\NormalTok{(}\OperatorTok{~}\NormalTok{hurricane) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme_minimal}\NormalTok{()}
+\NormalTok{plot1}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{script_files/figure-latex/googletrends-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#part2}
+\NormalTok{plot2 <-}\StringTok{ }\NormalTok{google_trends_longer }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(date, mentions, }\DataTypeTok{fill =}\NormalTok{ hurricane)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_area}\NormalTok{(}\DataTypeTok{position =} \StringTok{"dodge"}\NormalTok{, }\DataTypeTok{alpha =} \FloatTok{0.8}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme_minimal}\NormalTok{()}
+\NormalTok{plot2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Width not defined. Set with `position_dodge(width = ?)`
+\end{verbatim}
+
+\includegraphics{script_files/figure-latex/googletrends-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#part3}
+
+\CommentTok{# plot3 <- google_trends_longer %>%}
+\CommentTok{#   ggplot(aes(date, mentions)) +}
+\CommentTok{#   geom_area(aes(fill = hurricane)) +}
+\CommentTok{#   scico:: scale_fill_scico(palette = "tokyo") +}
+\CommentTok{#   theme_minimal}
+
+\CommentTok{# #Error: Discrete value supplied to continuous scale}
+\CommentTok{# How do I change the scales so color is mapped to a continuous scale? Hurricane is a categorical variable...}
+
+\CommentTok{# Maybe change the variable from categorical to numerical?}
+\CommentTok{# google_trends_longer$hurricane = as.numeric(levels(google_trends_longer$hurricane))[google_trends_longer$hurricane]}
+\CommentTok{# this didn't seem to work either... it all turned NA}
+
+
+\CommentTok{#I asked Daniel for help; feel like an idiot not figuring out this simple but oh well}
+\NormalTok{plot3 <-}\StringTok{ }\NormalTok{google_trends_longer }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(hurricane, date) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{mentions =} \KeywordTok{mean}\NormalTok{(mentions)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(date, hurricane)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_tile}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{fill =}\NormalTok{ mentions),}
+            \DataTypeTok{color =} \StringTok{"white"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{coord_fixed}\NormalTok{() }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{theme_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `summarise()` regrouping output by 'hurricane' (override with `.groups` argument)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{plot3}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{script_files/figure-latex/googletrends-3.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#part 4}
+
+\CommentTok{# google_trends_longer_landfall <- google_trends_longer %>%}
+\CommentTok{#   mutate(landfall = 0) %>%}
+\CommentTok{#   mutate(landfall = ifelse(}
+\CommentTok{#     hurricane == "harvey_us" & date == "2017-08-25" |}
+\CommentTok{#     hurricane == "irma_us" & date == "2017-09-10" |}
+\CommentTok{#     hurricane == "maria_us" & date == "2017-09-20",}
+\CommentTok{#     1, 0))}
+\CommentTok{#probably not the way Daniel intended....}
+
+\NormalTok{landfall <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{hurricane =} \KeywordTok{c}\NormalTok{(}\StringTok{"harvey_us"}\NormalTok{, }\StringTok{"irma_us"}\NormalTok{, }\StringTok{"maria_us"}\NormalTok{),}
+                       \DataTypeTok{date =} \KeywordTok{as.Date}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"2017-08-25"}\NormalTok{, }\StringTok{"2017-09-10"}\NormalTok{, }\StringTok{"2017-09-20"}\NormalTok{)),}
+                       \DataTypeTok{Ref =} \KeywordTok{c}\NormalTok{(}\StringTok{"Harvey landfall"}\NormalTok{, }\StringTok{"Irma landfall"}\NormalTok{, }\StringTok{"Maria landfall"}\NormalTok{),}
+                       \DataTypeTok{stringsAsFactors =} \OtherTok{FALSE}\NormalTok{)}
+
+\NormalTok{plot4 <-}\StringTok{ }\NormalTok{google_trends_longer }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(date, mentions, }\DataTypeTok{fill =}\NormalTok{ hurricane)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_area}\NormalTok{(}\DataTypeTok{position =} \StringTok{"dodge"}\NormalTok{, }\DataTypeTok{alpha =} \FloatTok{0.8}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_vline}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ landfall, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{xintercept=}\KeywordTok{as.numeric}\NormalTok{(date[}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{)]))) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme_minimal}\NormalTok{()}
+\NormalTok{plot4}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Width not defined. Set with `position_dodge(width = ?)`
+\end{verbatim}
+
+\includegraphics{script_files/figure-latex/googletrends-4.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#part 5}
+\NormalTok{plot5 <-}\StringTok{ }\NormalTok{google_trends_longer }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(date, mentions, }\DataTypeTok{fill =}\NormalTok{ hurricane)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_area}\NormalTok{(}\DataTypeTok{position =} \StringTok{"dodge"}\NormalTok{, }\DataTypeTok{alpha =} \FloatTok{0.8}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_vline}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ landfall, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{xintercept=}\KeywordTok{as.numeric}\NormalTok{(date[}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{)])), }\DataTypeTok{linetype=}\DecValTok{4}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_text}\NormalTok{(}\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ date,}
+                          \DataTypeTok{y =} \DecValTok{100}\NormalTok{,}
+                          \DataTypeTok{label =}\NormalTok{ Ref,}
+                          \DataTypeTok{hjust =} \DecValTok{0}\NormalTok{,}
+                          \DataTypeTok{vjust =} \DecValTok{0}\NormalTok{),}
+            \DataTypeTok{data =}\NormalTok{ landfall) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"US Google Search Interest on Hurricanes"}\NormalTok{,}
+       \DataTypeTok{x =} \StringTok{"Date"}\NormalTok{,}
+       \DataTypeTok{y =} \StringTok{"Search Interest"}\NormalTok{,}
+       \DataTypeTok{label =} \StringTok{"Hurricane"}\NormalTok{,}
+       \DataTypeTok{caption =} \StringTok{"Search interest measured in search term popularity relative to peak popularity}
+\StringTok{       in the given region and time period (with 100 as peak popularity)"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{scale_fill_discrete}\NormalTok{(}\DataTypeTok{name  =}\StringTok{"Hurricane"}\NormalTok{,}
+                      \DataTypeTok{breaks=}\KeywordTok{c}\NormalTok{(}\StringTok{"harvey_us"}\NormalTok{, }\StringTok{"irma_us"}\NormalTok{, }\StringTok{"jose_us"}\NormalTok{, }\StringTok{"maria_us"}\NormalTok{),}
+                      \DataTypeTok{labels=}\KeywordTok{c}\NormalTok{(}\StringTok{"Harvey"}\NormalTok{, }\StringTok{"Irma"}\NormalTok{, }\StringTok{"Jose"}\NormalTok{, }\StringTok{"Maria"}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme_minimal}\NormalTok{()}
+\NormalTok{plot5}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Width not defined. Set with `position_dodge(width = ?)`
+\end{verbatim}
+
+\includegraphics{script_files/figure-latex/googletrends-5.pdf}
+
+\hypertarget{replicating-national-cable-news-networks-plot}{%
+\subsection{2. Replicating ``National cable news networks''
+Plot}\label{replicating-national-cable-news-networks-plot}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tv_states_longer <-}\StringTok{ }\NormalTok{tv_states }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{pivot_longer}\NormalTok{(}\DataTypeTok{cols =}\NormalTok{ florida}\OperatorTok{:}\NormalTok{puerto_rico,}
+               \DataTypeTok{names_to =} \StringTok{"state"}\NormalTok{,}
+               \DataTypeTok{values_to =} \StringTok{"percent"}\NormalTok{)}
+
+\NormalTok{TVlines<-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{state =} \KeywordTok{c}\NormalTok{(}\StringTok{"florida"}\NormalTok{, }\StringTok{"texas"}\NormalTok{, }\StringTok{"puerto_rico"}\NormalTok{,}\StringTok{"florida"}\NormalTok{),}
+                     \DataTypeTok{date =} \KeywordTok{as.Date}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"2017-08-25"}\NormalTok{, }\StringTok{"2017-09-10"}\NormalTok{, }\StringTok{"2017-09-20"}\NormalTok{, }\StringTok{"2017-10-01"}\NormalTok{)),}
+                     \DataTypeTok{RefTV =} \KeywordTok{c}\NormalTok{(}\StringTok{"Harvey landfall"}\NormalTok{, }\StringTok{"Irma landfall"}\NormalTok{, }\StringTok{"Maria landfall"}\NormalTok{, }\StringTok{"Las Vegas shooting"}\NormalTok{),}
+                     \DataTypeTok{stringsAsFactors =} \OtherTok{FALSE}\NormalTok{)}
+
+\NormalTok{d <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{state =} \KeywordTok{c}\NormalTok{(}\StringTok{"texas"}\NormalTok{, }\StringTok{"florida"}\NormalTok{, }\StringTok{"puerto_rico"}\NormalTok{),}
+                \DataTypeTok{date=}\KeywordTok{as.Date}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"2017-08-28"}\NormalTok{,}\StringTok{"2017-09-10"}\NormalTok{,}\StringTok{"2017-10-01"}\NormalTok{)), }
+                \DataTypeTok{percent=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\FloatTok{1.5}\NormalTok{,}\FloatTok{0.40}\NormalTok{), }
+                \DataTypeTok{name =} \KeywordTok{c}\NormalTok{(}\StringTok{"Texas"}\NormalTok{, }\StringTok{"Florida"}\NormalTok{, }\StringTok{"Puerto Rico"}\NormalTok{),}
+                \DataTypeTok{stringsAsFactors =} \OtherTok{FALSE}\NormalTok{)}
+
+\NormalTok{TVplot <-}\StringTok{ }\NormalTok{tv_states_longer }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{state =} \KeywordTok{fct_relevel}\NormalTok{(state, }\StringTok{"florida"}\NormalTok{, }\StringTok{"texas"}\NormalTok{, }\StringTok{"puerto_rico"}\NormalTok{)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(date, percent, }\DataTypeTok{fill =}\NormalTok{ state)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{guides}\NormalTok{(}\DataTypeTok{fill =} \OtherTok{FALSE}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_area}\NormalTok{(}\DataTypeTok{position =} \StringTok{"dodge"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_vline}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ TVlines, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{xintercept=}\KeywordTok{as.numeric}\NormalTok{(date[}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{)])), }\DataTypeTok{linetype=}\DecValTok{4}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_text}\NormalTok{(}\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ date,}
+                          \DataTypeTok{y =} \DecValTok{4}\NormalTok{,}
+                          \DataTypeTok{label =}\NormalTok{ RefTV,}
+                          \DataTypeTok{hjust =} \StringTok{"center"}\NormalTok{,}
+                          \DataTypeTok{vjust =} \DecValTok{0}\NormalTok{),}
+            \DataTypeTok{data =}\NormalTok{ TVlines) }\OperatorTok{+}
+\StringTok{            }\KeywordTok{scale_fill_manual}\NormalTok{(}\DataTypeTok{values =} \KeywordTok{c}\NormalTok{(}\StringTok{"#ff007b"}\NormalTok{,}\StringTok{"#ff6e00"}\NormalTok{,}\StringTok{"#00d9ff"}\NormalTok{))}\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"National cable news networks"}\NormalTok{,}
+       \DataTypeTok{x =} \OtherTok{NULL}\NormalTok{,}
+       \DataTypeTok{y =} \StringTok{"Share of sentences"}\NormalTok{,}
+       \DataTypeTok{caption =} \StringTok{"Includes Bloomberg, CNBC, CNN, Fox Business, Fox News and MSNBC."}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }
+\StringTok{  }\KeywordTok{theme_minimal}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_text}\NormalTok{(}\DataTypeTok{data=}\NormalTok{d, }\DataTypeTok{mapping=}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{date, }\DataTypeTok{y=}\NormalTok{percent, }\DataTypeTok{label=}\NormalTok{name))}
+
+\NormalTok{TVplot}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Width not defined. Set with `position_dodge(width = ?)`
+\end{verbatim}
+
+\includegraphics{script_files/figure-latex/tv_states-1.pdf}
+
+\hypertarget{using-comic_characters-dataset}{%
+\subsection{2. Using Comic\_characters
+Dataset}\label{using-comic_characters-dataset}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(janitor)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'janitor'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:stats':
+## 
+##     chisq.test, fisher.test
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{comic_characters <-}\StringTok{ }\NormalTok{comic_characters}
+\NormalTok{N <-}\StringTok{ }\DecValTok{23272}
+
+\CommentTok{#pie chart of appearance count by first appearnce date}
+\NormalTok{comic_characters_gender <-}\StringTok{ }\NormalTok{comic_characters }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{count}\NormalTok{(}\DataTypeTok{gender_type =}\NormalTok{ sex) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{gender_ratio =}\NormalTok{ n}\OperatorTok{/}\NormalTok{N)}\CommentTok{#devide each sex count value by total }
+      
+\NormalTok{comic_characters_gender}\OperatorTok{$}\NormalTok{gender_type <-}\StringTok{ }\KeywordTok{gsub}\NormalTok{(}\StringTok{" Characters"}\NormalTok{, }\StringTok{""}\NormalTok{, comic_characters_gender}\OperatorTok{$}\NormalTok{gender_type)}
+
+\NormalTok{comic_plot_}\DecValTok{1}\NormalTok{ <-}\StringTok{ }\NormalTok{comic_characters_gender }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\StringTok{""}\NormalTok{, gender_ratio, }\DataTypeTok{fill =}\NormalTok{ gender_type)) }\OperatorTok{+}
+\StringTok{             }\KeywordTok{geom_bar}\NormalTok{(}\DataTypeTok{stat =} \StringTok{"identity"}\NormalTok{, }\DataTypeTok{width =} \DecValTok{5}\NormalTok{) }\OperatorTok{+}
+\StringTok{             }\KeywordTok{coord_polar}\NormalTok{(}\StringTok{"y"}\NormalTok{, }\DataTypeTok{start =} \DecValTok{0}\NormalTok{) }\OperatorTok{+}
+\StringTok{             }\KeywordTok{theme_void}\NormalTok{() }\OperatorTok{+}
+\StringTok{             }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Ratio of Gender Types of Comic Book Characters"}\NormalTok{,}
+             \DataTypeTok{x =} \StringTok{"Gender Ratio"}\NormalTok{,}
+             \DataTypeTok{y =} \OtherTok{NULL}\NormalTok{,}
+             \DataTypeTok{caption =} \StringTok{"Includes DC & Marvel Characters from 1938 to 2013"}\NormalTok{) }
+             \CommentTok{#scale_color_discrete(name = "Gender Types")}
+  
+             
+
+\NormalTok{comic_plot_}\DecValTok{1}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{script_files/figure-latex/comic_characters-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Bar plots for type of gender ratio by alignment}
+\NormalTok{comic_plot_}\DecValTok{2}\NormalTok{ <-}\StringTok{ }\NormalTok{comic_characters }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{count}\NormalTok{(}\DataTypeTok{gender_type =}\NormalTok{ sex, align) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{gender_ratio =}\NormalTok{ n}\OperatorTok{/}\NormalTok{N) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{#tabyl(gender_type, align) %>% #returns dataframe with counts with sex as row and align as column, }
+\StringTok{   }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(gender_ratio, align, }\DataTypeTok{fill =}\NormalTok{ gender_type)) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_col}\NormalTok{() }\OperatorTok{+}
+\StringTok{    }\KeywordTok{facet_wrap}\NormalTok{(}\OperatorTok{~}\NormalTok{gender_type) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{theme_minimal}\NormalTok{()}
+
+\NormalTok{comic_plot_}\DecValTok{2}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{script_files/figure-latex/comic_characters-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{comic_plot_}\DecValTok{3}\NormalTok{ <-}\StringTok{ }\NormalTok{comic_characters_gender }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(gender_type, gender_ratio, }\DataTypeTok{fill =}\NormalTok{ gender_type)) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_bar}\NormalTok{(}\DataTypeTok{stat=}\StringTok{"identity"}\NormalTok{)}
+
+\NormalTok{comic_plot_}\DecValTok{3} \OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Ratio of Gender Types of Comic Book Characters"}\NormalTok{,}
+       \DataTypeTok{subtitle =} \StringTok{"Includes DC & Marvel Characters from 1938 to 2013"}\NormalTok{,}
+       \DataTypeTok{x =} \StringTok{"Type"}\NormalTok{,}
+       \DataTypeTok{y =} \StringTok{"Ratio"}\NormalTok{,}
+       \DataTypeTok{label =} \StringTok{"Type"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{script_files/figure-latex/comic_characters-3.pdf}
+
+\end{document}
