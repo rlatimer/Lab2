@@ -18,7 +18,6 @@ library(fivethirtyeight)
 library(fivethirtyeightdata)
 library(tidyverse)
 library(scico)
-
 ```
 
 ## 1. Google Trends Data
@@ -47,11 +46,13 @@ plot2
 
 #part3
 
-# plot3 <- google_trends_longer %>%
-#   ggplot(aes(date, mentions)) +
-#   geom_area(aes(fill = hurricane)) +
-#   scico:: scale_fill_scico(palette = "tokyo") +
-#   theme_minimal
+plot3 <- google_trends_longer %>%
+  ggplot(aes(date, mentions)) +
+  geom_area(aes(fill = hurricane)) +
+  scico::scale_fill_scico_d(palette = "tokyo") +
+  theme_minimal()
+
+# DA: Not sure if the above is what you were goikng for here
 
 # #Error: Discrete value supplied to continuous scale
 # How do I change the scales so color is mapped to a continuous scale? Hurricane is a categorical variable...
@@ -72,6 +73,7 @@ plot3 <- google_trends_longer %>%
   theme_minimal()
 plot3
 
+# DA: Looks great! :)
 
 #part 4
 
@@ -91,8 +93,8 @@ landfall <- data.frame(hurricane = c("harvey_us", "irma_us", "maria_us"),
 
 plot4 <- google_trends_longer %>%
   ggplot(aes(date, mentions, fill = hurricane)) +
-  geom_area(position = "dodge", alpha = 0.8) +
-  geom_vline(data = landfall, aes(xintercept=as.numeric(date[c(1,2,3)]))) +
+  geom_area(position = "dodge", alpha = 0.8) + # I would use geom_ribbon instead, geom_area just works sort of oddly, I think
+  geom_vline(data = landfall, aes(xintercept = date)) +
   theme_minimal()
 plot4
 
@@ -100,7 +102,7 @@ plot4
 plot5 <- google_trends_longer %>%
   ggplot(aes(date, mentions, fill = hurricane)) +
   geom_area(position = "dodge", alpha = 0.8) +
-  geom_vline(data = landfall, aes(xintercept=as.numeric(date[c(1,2,3)])), linetype=4) +
+  geom_vline(data = landfall, aes(xintercept = date), linetype = 4) +
   geom_text(mapping = aes(x = date,
                           y = 100,
                           label = Ref,
@@ -119,6 +121,7 @@ plot5 <- google_trends_longer %>%
   theme_minimal()
 plot5
 
+# DA: Very nice!
 ```
 
 
@@ -152,12 +155,11 @@ TVplot <- tv_states_longer %>%
                           hjust = "center",
                           vjust = 0),
             data = TVlines) +
-            scale_fill_manual(values = c("#ff007b","#ff6e00","#00d9ff"))+
+  scale_fill_manual(values = c("#ff007b","#ff6e00","#00d9ff"))+
   labs(title = "National cable news networks",
        x = NULL,
        y = "Share of sentences",
        caption = "Includes Bloomberg, CNBC, CNN, Fox Business, Fox News and MSNBC.") +
-  
   theme_minimal() +
   geom_text(data=d, mapping=aes(x=date, y=percent, label=name))
 
@@ -170,10 +172,11 @@ TVplot
 ```{r comic_characters}
 library(janitor)
 
+# Not sure what the line below is about?
 comic_characters <- comic_characters
-N <- 23272
+N <- 23272 # I would do this more programmatically, with nrow(comic_characters)
 
-#pie chart of appearance count by first appearnce date
+# pie chart of appearance count by first appearance date
 comic_characters_gender <- comic_characters %>%
   count(gender_type = sex) %>% 
     mutate(gender_ratio = n/N)#devide each sex count value by total 
@@ -190,8 +193,6 @@ comic_plot_1 <- comic_characters_gender %>%
              y = NULL,
              caption = "Includes DC & Marvel Characters from 1938 to 2013") 
              #scale_color_discrete(name = "Gender Types")
-  
-             
 
 comic_plot_1
 
@@ -202,8 +203,10 @@ comic_plot_2 <- comic_characters %>%
   #tabyl(gender_type, align) %>% #returns dataframe with counts with sex as row and align as column, 
    ggplot(aes(gender_ratio, align, fill = gender_type)) +
     geom_col() +
-    facet_wrap(~gender_type) +
-    theme_minimal()
+    #facet_wrap(~gender_type) +
+    facet_wrap(~gender_type, scales = "free_y") + # DA: Consider freeing up the y-axis
+    theme_minimal() +
+    guides(fill = "none") # DA: probably don't need the legend here
 
 comic_plot_2
  
@@ -216,7 +219,8 @@ comic_plot_3 +
        subtitle = "Includes DC & Marvel Characters from 1938 to 2013",
        x = "Type",
        y = "Ratio",
-       label = "Type")
+       label = "Type") +
+  guides(fill = "none") # DA: Probably don't need the legend
 
 ```
 
